@@ -1,0 +1,418 @@
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Inter', 'Arial', sans-serif;
+        overflow-x: hidden;
+        min-height: 100vh;
+        color: white;
+    }
+
+    /* Enhanced Contact Section */
+    .contact {
+        background: linear-gradient(135deg, #ff6b35, #f7931e);
+        padding: 80px 20px;
+        color: white;
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        min-height: calc(100vh - 80px);
+    }
+
+    .contact-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+    }
+
+    .contact-header {
+        text-align: center;
+        margin-bottom: 60px;
+        width: 100%;
+    }
+
+    .contact-header h1 {
+        font-weight: 900;
+        font-size: 3rem;
+        margin-bottom: 24px;
+        color: white;
+    }
+
+    .contact-header p {
+        font-size: 1.2rem;
+        line-height: 1.8;
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto 30px;
+        opacity: 0.9;
+        color: white;
+    }
+
+    .contact-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: start;
+    }
+
+    .contact-left {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .map-container {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 24px;
+        padding: 30px;
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        /* box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); */
+    }
+
+    .map-container iframe {
+        width: 100%;
+        height: 350px;
+        border-radius: 16px;
+        border: none;
+        /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); */
+    }
+
+    .contact-info {
+        background: rgba(255, 255, 255, 0.15);
+        padding: clamp(20px, 3vw, 30px);
+        border-radius: 24px;
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .contact-info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: clamp(15px, 2vw, 20px);
+        padding: clamp(15px, 2vw, 20px);
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 15px rgba(255, 107, 53, 0.2);
+        border-radius: 16px;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .contact-info-item:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateX(5px) translateY(-2px);
+        box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+    }
+
+    .contact-info-item ion-icon {
+        font-size: clamp(24px, 3vw, 28px);
+        color: white;
+        margin-top: 2px;
+        filter: drop-shadow(0 2px 4px rgba(255, 107, 53, 0.3));
+        flex-shrink: 0;
+    }
+
+    .contact-info-item p {
+        margin: 0;
+        font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+        line-height: 1.6;
+        color: white;
+        font-weight: 400;
+    }
+
+    .contact-feedback {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 24px;
+        padding: 30px;
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        /* box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); */
+        height: fit-content;
+    }
+
+    .contact-form h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 2rem;
+        font-weight: 700;
+        color: white;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: white;
+        font-size: 1rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 16px 20px;
+        border-radius: 12px;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        font-size: 1rem;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        border-color: #ff6b35;
+        outline: none;
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+    }
+
+    .form-group textarea {
+        height: 140px;
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    .submit-btn {
+        width: 100%;
+        background: white;
+        color: #ff6b35;
+        padding: 18px 24px;
+        border: none;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 20px rgba(255, 107, 53, 0.4);
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(255, 107, 53, 0.6);
+        background: #565656;
+        color: white;
+    }
+
+    .submit-btn:active {
+        transform: translateY(0);
+    }
+
+    /* Footer */
+    .footer {
+        background: #565656;
+        color: white;
+        padding: 40px 20px 20px;
+        text-align: center;
+    }
+
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .footer p {
+        margin-bottom: 10px;
+        opacity: 0.9;
+    }
+
+    .footer-links {
+        margin: 20px 0;
+    }
+
+    .footer-links a {
+        color: #ff6b35;
+        text-decoration: none;
+        margin: 0 15px;
+        transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+        color: #f7931e;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 1024px) {
+        .contact-content {
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        .contact-left {
+            order: 1;
+        }
+
+        .contact-feedback {
+            order: 2;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .hamburger {
+            display: flex;
+        }
+
+        .nav-menu {
+            position: fixed;
+            left: -100%;
+            top: 80px;
+            flex-direction: column;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            width: 100%;
+            height: calc(100vh - 80px);
+            transition: 0.3s ease;
+            padding: 20px 0;
+            gap: 0;
+            align-items: stretch;
+            overflow-y: auto;
+            z-index: 999;
+        }
+
+        .nav-menu.active {
+            left: 0;
+        }
+
+        .navbar {
+            padding: 15px 20px;
+        }
+
+        .contact {
+            padding: 60px 15px;
+        }
+
+        .contact-header h1 {
+            font-size: 2.5rem;
+        }
+
+        .contact-header p {
+            font-size: 1.1rem;
+            padding: 0 10px;
+        }
+
+        .map-container,
+        .contact-feedback {
+            padding: 25px;
+            border-radius: 20px;
+        }
+
+        .contact-info-item {
+            flex-direction: row;
+            text-align: left;
+            gap: 15px;
+            padding: 18px;
+        }
+
+        .contact-info-item ion-icon {
+            align-self: flex-start;
+        }
+
+
+
+        .footer-links {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 14px 18px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .contact {
+            padding: 40px 10px;
+        }
+
+        .contact-header h1 {
+            font-size: 2rem;
+        }
+
+        .map-container,
+        .contact-info,
+        .contact-feedback {
+            padding: 20px;
+            border-radius: 16px;
+        }
+
+        .contact-form h2 {
+            font-size: 1.6rem;
+        }
+
+        .contact-info-item {
+            flex-direction: column;
+            gap: 12px;
+            text-align: center;
+        }
+
+        .contact-info-item ion-icon {
+            align-self: center;
+        }
+    }
+
+    /* Animation Classes */
+    .fade-in {
+        animation: fadeIn 0.8s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .slide-in-left {
+        animation: slideInLeft 0.8s ease-out;
+    }
+
+    @keyframes slideInLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .slide-in-right {
+        animation: slideInRight 0.8s ease-out;
+    }
+
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
