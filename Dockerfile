@@ -44,4 +44,5 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
 EXPOSE 80
 
 # Start Apache
-CMD ["apache2-foreground"]
+CMD php artisan serve --host=0.0.0.0 --port=$PORT
+
