@@ -26,15 +26,15 @@
             <ul class="nav-menu">
                 <li class="nav-item"><a href="/home" class="nav-link">UTAMA</a></li>
                 <li class="nav-item"><a href="/about" class="nav-link">TENTANG KAMI</a></li>
-                <li class="nav-item"><a href="#" class="nav-link active">CAWANGAN
+                <li class="nav-item"><a href="/cawangan" class="nav-link active">CAWANGAN
                     <span class="dropdown-arrow">▼</span></a>
                     <div class="dropdown-menu">
                          <a href="/cawangan?section=pentadbiran" class="dropdown-item">Pentadbiran & Modal Insan</a>
                         <a href="/cawangan?section=kewangan" class="dropdown-item">Kewangan</a>
                         <a href="/cawangan?section=pengurusan" class="dropdown-item">Pengurusan Tanah & Aset</a>
                         <a href="/cawangan?section=perolehan" class="dropdown-item">Perolehan</a>
-                        <a href="/cawangan?section=pembangunan-komuniti" class="dropdown-item">Pembangunan Komuniti</a>
-                        <a href="/cawangan?section=pembangunan-usaha" class="dropdown-item">Pembangunan Usahawan, Pertanian & Ternakan</a>
+                        <a href="/cawangan?section=pembangunan-komuniti" class="dropdown-item">Pembangunan Komuniti & Generasi</a>
+                        <a href="/cawangan?section=pembangunan-usaha" class="dropdown-item">Pembangunan Ekonomi & Komuniti</a>
                         <a href="/cawangan?section=perladangan" class="dropdown-item">Perladangan</a>
                     </div>
                 </li>
@@ -65,8 +65,8 @@
                             <li><a href="#" onclick="showContent('kewangan')">Kewangan</a></li>
                             <li><a href="#" onclick="showContent('pengurusan')">Pengurusan Tanah & Aset</a></li>
                             <li><a href="#" onclick="showContent('perolehan')">Perolehan</a></li>
-                            <li><a href="#" onclick="showContent('pembangunan-komuniti')">Pembangunan Komuniti</a></li>
-                            <li><a href="#" onclick="showContent('pembangunan-usaha')">Pembangunan Usahawan, Pertanian & Ternakan</a></li>
+                            <li><a href="#" onclick="showContent('pembangunan-komuniti')">Pembangunan Komuniti & Generasi</a></li>
+                            <li><a href="#" onclick="showContent('pembangunan-usaha')">Pembangunan Ekonomi & Komuniti</a></li>
                             <li><a href="#" onclick="showContent('perladangan')">Perladangan</a></li>
                         </ul>
                     </nav>
@@ -108,12 +108,12 @@
                             </div>
                             <div class="functions-list">
                                 <h4>Fungsi Utama:</h4>
-                                <li>Pengurusan rekod dan dokumentasi pentadbiran</li>
-                                <li>Pengambilan dan penempatan kakitangan</li>
-                                <li>Pembangunan dan latihan kakitangan</li>
-                                <li>Pengurusan prestasi dan penilaian</li>
-                                <li>Pengurusan kebajikan kakitangan</li>
-                                <li>Koordinasi aktiviti pentadbiran am</li>
+                                <li>Pengurusan Am Pejabat</li>
+                                <li>Pentadbiran Sumber Manusia</li>
+                                <li>Sistem Penyampaian Perkhidmatan</li>
+                                <li>Urusan Surat</li>
+                                <li>Kursus & Latihan</li>
+                                <li>Pengurusan Kenderaan Rasmi</li>
                             </div>
                             <div class="contact-info">
                                 <strong>Maklumat Hubungan:</strong><br>
@@ -130,16 +130,20 @@
                                 <h2>Kewangan</h2>
                             </div>
                             <div class="department-description">
-                                <p>Cawangan Kewangan menguruskan semua aspek kewangan dan perakaunan di FELDA Wilayah Trolak. Cawangan ini memastikan pengurusan kewangan yang telus, bertanggungjawab dan mematuhi peraturan yang ditetapkan.</p>
+                                <p>Cawangan Kewangan memastikan semua aspek kewangan 
+                                    FELDA Wilayah Trolak diuruskan dengan sistematik, termasuk bajet, kutipan pinjaman, dan kawalan audit. 
+                                    Ia berperanan penting dalam menjamin ketelusan dan kecekapan pengurusan kewangan organisasi.</p>
                             </div>
                             <div class="functions-list">
                                 <h4>Fungsi Utama:</h4>
-                                <li>Pengurusan belanjawan dan perancangan kewangan</li>
-                                <li>Perakaunan dan penyediaan laporan kewangan</li>
-                                <li>Pengurusan aliran tunai dan pembayaran</li>
-                                <li>Audit dalaman dan kawalan kewangan</li>
-                                <li>Pengurusan akaun peneroka dan dividen</li>
-                                <li>Pematuhan peraturan kewangan dan cukai</li>
+                                <li>Pengurusan Bajet</li>
+                                <li>Pengurusan Wang</li>
+                                <li>Kutipan Pinjaman Peneroka</li>
+                                <li>Daftar Akaun Aset Tetap & Alih</li>
+                                <li>Penerimaan dan Bayaran</li>
+                                <li>Urusan Insurans</li>
+                                <li>Pengurusan Akaun Badan dan Institusi Peneroka</li>
+                                <li>Pengauditan dan Pemeriksaan Akaun</li>
                             </div>
                             <div class="contact-info">
                                 <strong>Maklumat Hubungan:</strong><br>
@@ -156,16 +160,23 @@
                                 <h2>Pengurusan Tanah & Aset</h2>
                             </div>
                             <div class="department-description">
-                                <p>Cawangan Pengurusan Tanah & Aset bertanggungjawab dalam pengurusan dan pentadbiran semua tanah dan aset milik FELDA Wilayah Trolak. Cawangan ini memastikan pemanfaatan optimum aset untuk kepentingan peneroka dan organisasi.</p>
+                                <p>Cawangan Pengurusan Tanah & Aset bertanggungjawab dalam pengurusan hak milik tanah, aset fizikal, 
+                                    serta penyelarasan pemilikan peneroka. 
+                                    Ia memastikan semua aset diurus secara sistematik bagi menjamin ketelusan dan keberkesanan operasi.</p>
                             </div>
                             <div class="functions-list">
                                 <h4>Fungsi Utama:</h4>
-                                <li>Pengurusan hakmilik dan dokumentasi tanah</li>
-                                <li>Perancangan dan pembangunan tanah</li>
-                                <li>Pengurusan aset dan kemudahan</li>
-                                <li>Penyelenggaraan dan pembaikan infrastruktur</li>
-                                <li>Pengurusan kontrak pembangunan</li>
-                                <li>Penilaian dan inventori aset</li>
+                                <li>Pengurusan Rekod dan Data Rancangan</li>
+                                <li>Surat Perjanjian Peneroka</li>
+                                <li>Pengurusan Pengambilan Tanah Oleh Kerajaan</li>
+                                <li>Kematian dan Pengurusan Perwarisan</li>
+                                <li>Pengurusan Rekod dan Data Aset</li>
+                                <li>Penerimaan Aset</li>
+                                <li>Penggunaan, Penyimpanan dan Pemeriksaan Aset</li>
+                                <li>Pindahan Aset</li>
+                                <li>Pengurusan Kehilangan Aset</li>
+                                <li>Pindahan Aset</li>
+                                <li>Pengurusan Stor</li>
                             </div>
                             <div class="contact-info">
                                 <strong>Maklumat Hubungan:</strong><br>
@@ -182,16 +193,19 @@
                                 <h2>Perolehan</h2>
                             </div>
                             <div class="department-description">
-                                <p>Cawangan Perolehan menguruskan semua aktiviti pembelian dan perolehan barang dan perkhidmatan untuk FELDA Wilayah Trolak. Cawangan ini memastikan proses perolehan dilakukan secara telus, berkesan dan mematuhi peraturan yang ditetapkan.</p>
+                                <p>Cawangan Perolehan bertanggungjawab dalam menguruskan segala kontrak, bekalan dan perkhidmatan 
+                                    yang diperlukan oleh FELDA Wilayah Trolak.
+                                     Ia memastikan proses perolehan dilakukan secara telus, cekap, dan mengikut peraturan.</p>
                             </div>
                             <div class="functions-list">
                                 <h4>Fungsi Utama:</h4>
-                                <li>Pengurusan tender dan sebut harga</li>
-                                <li>Penilaian vendor dan pembekal</li>
-                                <li>Pengurusan kontrak pembekalan</li>
-                                <li>Kawalan kualiti barangan dan perkhidmatan</li>
-                                <li>Pengurusan inventori dan stok</li>
-                                <li>Pematuhan prosedur perolehan</li>
+                                <li>Pengurusan Kontrak Kerja, Bekalan & Perkhidmatan</li>
+                                <li>Pengawasan Kontrak</li>
+                                <li>Mesyuarat TAC</li>
+                                <li>Urusan Bayaran Kontrak</li>
+                                <li>Urusan Kerja Naik Taraf Bangunan Wilayah</li>
+                                <li>Penyelenggaraan Bangunan</li>
+                                <li>Pengurusan Tender</li>
                             </div>
                             <div class="contact-info">
                                 <strong>Maklumat Hubungan:</strong><br>
@@ -205,19 +219,23 @@
                     <div id="pembangunan-komuniti" class="content-section">
                         <div class="department-card">
                             <div class="department-header">
-                                <h2>Pembangunan Komuniti</h2>
+                                <h2>Pembangunan Komuniti & Generasi</h2>
                             </div>
                             <div class="department-description">
-                                <p>Cawangan Pembangunan Komuniti fokus kepada pembangunan sosial dan kesejahteraan komuniti peneroka di FELDA Wilayah Trolak. Cawangan ini berusaha meningkatkan kualiti hidup dan mengembangkan potensi komuniti.</p>
+                                <p>Cawangan Pembangunan Komuniti & Generasi memberi tumpuan kepada pembangunan sosial peneroka serta 
+                                    generasi baharu. Ia melibatkan aktiviti
+                                     kemasyarakatan, pendidikan, dan latihan bagi melahirkan generasi FELDA yang lebih berdaya saing..</p>
                             </div>
                             <div class="functions-list">
                                 <h4>Fungsi Utama:</h4>
-                                <li>Program pembangunan komuniti dan sosial</li>
-                                <li>Aktiviti kebajikan dan bantuan komuniti</li>
-                                <li>Program pendidikan dan kemahiran</li>
-                                <li>Pengurusan kemudahan awam</li>
-                                <li>Koordinasi dengan agensi luar</li>
-                                <li>Program kebudayaan dan rekreasi</li>
+                                <li>Pembangunan Institusi Peneroka (JKKR, GPW, MBFM & KAF)</li>
+                                <li>Pengurusan Aktiviti Kerohanian dan Institusi Islam</li>
+                                <li>Pengurusan Aduan</li>
+                                <li>Pengurusan Data Peneroka & Generasi Baharu</li>
+                                <li>Pembangunan Pendidikan & Latihan Kemahiran Generasi Baharu</li>
+                                <li>Pembangunan Sukan </li>
+                                <li>Pengurusan Infrastruktur</li>
+                                <li>Anugerah Kecemerlangan Rancangan FELDA (AKRF)</li>
                             </div>
                             <div class="contact-info">
                                 <strong>Maklumat Hubungan:</strong><br>
@@ -231,19 +249,23 @@
                     <div id="pembangunan-usaha" class="content-section">
                         <div class="department-card">
                             <div class="department-header">
-                                <h2>Pembangunan Usahawan, Pertanian & Ternakan</h2>
+                                <h2>Pembangunan Ekonomi & Komuniti</h2>
                             </div>
                             <div class="department-description">
-                                <p>Cawangan ini menguruskan pembangunan ekonomi peneroka melalui program keusahawanan, pertanian dan ternakan. Fokus utama adalah meningkatkan pendapatan dan kecekapan dalam sektor-sektor ini.</p>
+                                <p>Cawangan Pembangunan Ekonomi & Komuniti berperanan dalam memperkasakan 
+                                    pembangunan ekonomi peneroka dan komuniti setempat. Ia memberi tumpuan kepada
+                                     pembangunan keusahawanan, koperasi, serta program pembiayaan untuk meningkatkan 
+                                     taraf hidup masyarakat.</p>
                             </div>
                             <div class="functions-list">
                                 <h4>Fungsi Utama:</h4>
-                                <li>Program pembangunan keusahawanan</li>
-                                <li>Bimbingan teknikal pertanian dan ternakan</li>
-                                <li>Pengurusan projek pembangunan ekonomi</li>
-                                <li>Program latihan dan peningkatan kemahiran</li>
-                                <li>Pemantauan prestasi usaha tani</li>
-                                <li>Koordinasi dengan agensi pertanian</li>
+                                <li>Pengurusan Rekod dan Data Usahawan</li>
+                                <li>Program Latihan Usahawan</li>
+                                <li>Pengurusan Koperasi Rancangan</li>
+                                <li>Pembangunan Asas Tani</li>
+                                <li>Program Pembangunan Pneroka</li>
+                                <li>Pengurusan Dana dan Pinjaman Usahawan</li>
+                                <li>Program Sejati MADANI</li>
                             </div>
                             <div class="contact-info">
                                 <strong>Maklumat Hubungan:</strong><br>
@@ -260,16 +282,26 @@
                                 <h2>Perladangan</h2>
                             </div>
                             <div class="department-description">
-                                <p>Cawangan Perladangan menguruskan semua aktiviti berkaitan pengeluaran kelapa sawit dan tanaman lain di ladang-ladang FELDA Wilayah Trolak. Cawangan ini bertanggungjawab memastikan produktiviti dan kualiti hasil yang optimum.</p>
+                                <p>Cawangan Perladangan bertanggungjawab dalam menguruskan segala aktiviti 
+                                    berkaitan tanaman semula, kawalan kualiti hasil, serta pembangunan ladang. 
+                                    Cawangan ini memainkan peranan penting dalam memastikan operasi pertanian berjalan 
+                                    lancar dan memberi hasil yang optimum.</p>
                             </div>
                             <div class="functions-list">
                                 <h4>Fungsi Utama:</h4>
-                                <li>Pengurusan operasi ladang harian</li>
-                                <li>Pemantauan kualiti dan produktiviti tanaman</li>
-                                <li>Pengurusan tenaga kerja ladang</li>
-                                <li>Program penanaman dan pemeliharaan</li>
-                                <li>Kawalan kualiti hasil dan pengumpulan</li>
-                                <li>Pengurusan peralatan dan jentera ladang</li>
+                                <li>Pengurusan Tanam Semula</li>
+                                <li>Pengurusan Ladang Sebelum Berhasil</li>
+                                <li>Pengurusan Ladang Selepas Berhasil</li>
+                                <li>Kawalan Mutu Hasil</li>
+                                <li>Pengurusan Rekod Hasil</li>
+                                <li>Jawatankuasa Persepakatan Bersama (JCC)</li>
+                                <li>Pengurusan FPMSB</li>
+                                <li>Kawalan Penyakit</li>
+                                <li>Stok Bekalan Pertanian</li>
+                                <li>Kelestarian</li>
+                                <li>Penyelidikan dan Pembangunan</li>
+                                <li>Sekretariat Mesyuarat Operasi</li>
+                                <li>Kumpulan Inovatif & Kreatif (KIK)</li>
                             </div>
                             <div class="contact-info">
                                 <strong>Maklumat Hubungan:</strong><br>
@@ -322,7 +354,6 @@
 
 
     <script>
- // Updated JavaScript for cawangan.blade.php
 
 document.addEventListener('DOMContentLoaded', function() {
     // Check for URL parameters on page load

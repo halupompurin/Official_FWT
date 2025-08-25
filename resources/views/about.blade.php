@@ -37,8 +37,8 @@
                         <a href="/cawangan?section=kewangan" class="dropdown-item">Kewangan</a>
                         <a href="/cawangan?section=pengurusan" class="dropdown-item">Pengurusan Tanah & Aset</a>
                         <a href="/cawangan?section=perolehan" class="dropdown-item">Perolehan</a>
-                        <a href="/cawangan?section=pembangunan-komuniti" class="dropdown-item">Pembangunan Komuniti</a>
-                        <a href="/cawangan?section=pembangunan-usaha" class="dropdown-item">Pembangunan Usahawan, Pertanian & Ternakan</a>
+                        <a href="/cawangan?section=pembangunan-komuniti" class="dropdown-item">Pembangunan Komuniti & Generasi</a>
+                        <a href="/cawangan?section=pembangunan-usaha" class="dropdown-item">Pembangunan Ekonomi & Komuniti</a>
                         <a href="/cawangan?section=perladangan" class="dropdown-item">Perladangan</a>
                     </div>
                 </li>
@@ -161,14 +161,14 @@
                 <div class="service-card" data-aos="fade-up" data-aos-delay="100">
                     <a href="/cawangan?section=pembangunan-komuniti" >
                         <div class="service-icon">🤝</div>
-                        <h4>Pembangunan Komuniti</h4>
+                        <h4>Pembangunan Komuniti & Generasi</h4>
                         <p>Program-program pembangunan komuniti untuk meningkatkan kualiti hidup peneroka.</p>
                     </a>
                 </div>
                 <div class="service-card" data-aos="fade-up" data-aos-delay="200">
                     <a href="/cawangan?section=pembangunan-usaha" >
                         <div class="service-icon">🌱</div>
-                        <h4>Pembangunan Usahawan</h4>
+                        <h4>Pembangunan Ekonomi & Komuniti</h4>
                         <p>Pembangunan sektor pertanian dan ternakan untuk ekonomi yang mampan.</p>
                     </a>
                 </div>
@@ -209,104 +209,81 @@
   </script>
     <script>
 
-document.addEventListener('DOMContentLoaded', function() {
-    const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav-menu');
-    const navItems = document.querySelectorAll('.nav-item');
-    const dropdownItems = document.querySelectorAll('.nav-item');
+ // Get all navigation links
+        const navLinks = document.querySelectorAll('.nav-link[data-page]');
+        const contentSections = document.querySelectorAll('.content-section');
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        const mobileOverlay = document.querySelector('.mobile-overlay');
 
-    // Toggle mobile menu
-    hamburger.addEventListener('click', function() {
-        hamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
-        
-        // Prevent body scroll when menu is open
-        if (navMenu.classList.contains('active')) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'auto';
-        }
-    });
+        // Add click event listener to each nav link
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active-nav class from all nav links
+                navLinks.forEach(navLink => {
+                    navLink.classList.remove('active-nav');
+                });
+                
+                // Add active-nav class to clicked link
+                this.classList.add('active-nav');
+                
+                // Hide all content sections
+                contentSections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Show corresponding content section
+                const targetPage = this.getAttribute('data-page');
+                const targetSection = document.getElementById(targetPage);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                }
 
-    // Handle dropdown clicks on mobile
-    dropdownItems.forEach(item => {
-        const link = item.querySelector('.nav-link');
-        const dropdown = item.querySelector('.dropdown-menu');
-        
-        if (dropdown) {
+                // Close mobile menu if open
+                if (navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                    mobileOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+
+        // Hamburger menu functionality
+        hamburger.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+            mobileOverlay.classList.toggle('active');
+            
+            // Prevent body scroll when menu is open
+            if (navMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Close menu when overlay is clicked
+        mobileOverlay.addEventListener('click', function() {
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+            mobileOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Handle dropdown functionality for mobile
+        const dropdownItems = document.querySelectorAll('.nav-item:has(.dropdown-menu)');
+        dropdownItems.forEach(item => {
+            const link = item.querySelector('.nav-link');
             link.addEventListener('click', function(e) {
                 if (window.innerWidth <= 768) {
                     e.preventDefault();
                     item.classList.toggle('active');
-                    
-                    // Close other dropdowns
-                    dropdownItems.forEach(otherItem => {
-                        if (otherItem !== item) {
-                            otherItem.classList.remove('active');
-                        }
-                    });
                 }
             });
-        }
-    });
-
-    // Close menu when clicking on regular nav links (not dropdown toggles)
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', function(e) {
-            const parentItem = e.target.closest('.nav-item');
-            const hasDropdown = parentItem.querySelector('.dropdown-menu');
-            
-            // Only close menu if it's not a dropdown toggle
-            if (!hasDropdown && window.innerWidth <= 768) {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        });
-    });
-
-    // Close menu when clicking on dropdown items
-    document.querySelectorAll('.dropdown-item').forEach(item => {
-        item.addEventListener('click', function() {
-            if (window.innerWidth <= 768) {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
-                navItems.forEach(navItem => navItem.classList.remove('active'));
-                document.body.style.overflow = 'auto';
-            }
-        });
-    });
-
-    // Close menu when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.navbar')) {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
-            navItems.forEach(item => item.classList.remove('active'));
-            document.body.style.overflow = 'auto';
-        }
-    });
-
-    // Handle window resize
-    window.addEventListener('resize', function() {
-        if (window.innerWidth > 768) {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
-            navItems.forEach(item => item.classList.remove('active'));
-            document.body.style.overflow = 'auto';
-        }
-    });
-
-    // Handle scroll to close mobile menu
-    window.addEventListener('scroll', function() {
-        if (window.innerWidth <= 768 && navMenu.classList.contains('active')) {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
-            navItems.forEach(item => item.classList.remove('active'));
-            document.body.style.overflow = 'auto';
-        }
-    });
-});
+        })
     </script>
 </body>
 </html>

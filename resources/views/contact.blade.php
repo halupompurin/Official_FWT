@@ -30,15 +30,15 @@
             <ul class="nav-menu">
                 <li class="nav-item"><a href="/home" class="nav-link">UTAMA</a></li>
                 <li class="nav-item"><a href="/about" class="nav-link">TENTANG KAMI</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">CAWANGAN
+                <li class="nav-item"><a href="/cawangan" class="nav-link">CAWANGAN
                     <span class="dropdown-arrow">▼</span></a>
                     <div class="dropdown-menu">
                         <a href="/cawangan?section=pentadbiran" class="dropdown-item">Pentadbiran & Modal Insan</a>
                         <a href="/cawangan?section=kewangan" class="dropdown-item">Kewangan</a>
                         <a href="/cawangan?section=pengurusan" class="dropdown-item">Pengurusan Tanah & Aset</a>
                         <a href="/cawangan?section=perolehan" class="dropdown-item">Perolehan</a>
-                        <a href="/cawangan?section=pembangunan-komuniti" class="dropdown-item">Pembangunan Komuniti</a>
-                        <a href="/cawangan?section=pembangunan-usaha" class="dropdown-item">Pembangunan Usahawan, Pertanian & Ternakan</a>
+                        <a href="/cawangan?section=pembangunan-komuniti" class="dropdown-item">Pembangunan Komuniti & Generasi</a>
+                        <a href="/cawangan?section=pembangunan-usaha" class="dropdown-item">Pembangunan Ekonomi & Komuniti</a>
                         <a href="/cawangan?section=perladangan" class="dropdown-item">Perladangan</a>
                     </div>
                 </li>
