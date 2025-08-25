@@ -1,25 +1,29 @@
-# Use FrankenPHP with Caddy
+# Stage 1: Composer dependencies
+FROM composer:2 as vendor
+
+WORKDIR /app
+COPY composer.json composer.lock ./
+RUN composer install --no-dev --optimize-autoloader
+
+# Stage 2: FrankenPHP with Laravel
 FROM dunglas/frankenphp
 
-# Install PHP extensions for Laravel
 RUN install-php-extensions pdo pdo_mysql pdo_pgsql bcmath gd intl zip
 
 WORKDIR /app
 
-# Copy files
+# Copy Laravel project
 COPY . .
 
-# ✅ Add Composer from official Composer image
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+# Copy vendor from Composer stage
+COPY --from=vendor /app/vendor /app/vendor
 
-# Install dependencies
-RUN composer install --no-dev --optimize-autoloader
-
-# Optimize Laravel
+# Laravel optimizations
 RUN php artisan config:cache && \
     php artisan route:cache && \
     php artisan view:cache
 
 EXPOSE 8080
 
-CMD ["frankenphp", "run", "--config", "/etc/caddy/Caddyfile", "--worker"]
+# ✅ Run FrankenPHP serving the Laravel public folder
+CMD ["frankenphp", "run", "--php", "/app/public"]
