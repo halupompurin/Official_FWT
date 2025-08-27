@@ -214,10 +214,7 @@
             </div>
             <div style="display: flex; justify-content: flex-end; gap: 1rem;">
                 <button class="btn btn-secondary" onclick="closeModal()">Close</button>
-                <a href="#" id="replyButton" class="btn btn-primary">
-                    <ion-icon name="mail-outline"></ion-icon>
-                    Reply via Email
-                </a>
+                
             </div>
         </div>
     </div>
@@ -232,11 +229,8 @@
             document.getElementById('modalDate').textContent = date;
             document.getElementById('modalMessage').textContent = message;
             
-            const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}&su=${encodeURIComponent('Re: Your message to FELDA Wilayah Trolak')}`; 
-               
-            document.getElementById('replyButton').href = gmailUrl;
-            document.getElementById('replyButton').target = '_blank'; // Open in new tab
             document.getElementById('messageModal').classList.add('show');
+            
         }
 
         function closeModal() {

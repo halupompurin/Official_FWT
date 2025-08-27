@@ -56,11 +56,53 @@
     white-space: nowrap;
 }
 
-.nav-link:active{
-    background: rgba(255, 255, 255, 0.15); 
+/* ACTIVE STATE STYLES - NEW */
+.nav-link.active {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
 }
 
-.nav-link:hover {
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 3px;
+    background: white;
+    border-radius: 2px;
+}
+
+/* Subtle pulse animation for active state */
+.nav-link.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    animation: activePulse 2s ease-in-out infinite;
+}
+
+@keyframes activePulse {
+
+    0%,
+    100% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.nav-link:not(.active):hover {
     background: rgba(255, 255, 255, 0.15);
     transform: translateY(-2px);
 }
@@ -74,9 +116,10 @@
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     transition: left 0.5s;
+    z-index: -1;
 }
 
-.nav-link:hover::before {
+.nav-link:not(.active):hover::before {
     left: 100%;
 }
 
@@ -200,7 +243,7 @@
 }
 
 .hamburger.active span:nth-child(1) {
-    transform: rotate(-50deg) translate(-7px,3px);
+    transform: rotate(-50deg) translate(-7px, 3px);
 }
 
 .hamburger.active span:nth-child(2) {
@@ -227,37 +270,6 @@
 
 .mobile-overlay.active {
     opacity: 1;
-}
-
-/* Tablet Responsive Design (768px - 1024px) */
-@media (min-width: 769px) and (max-width: 1024px) {
-    .navbar {
-        padding: 12px 25px;
-    }
-    
-    .nav-menu {
-        gap: 1.5rem;
-    }
-    
-    .nav-link {
-        padding: 0.7rem 1rem;
-        font-size: 0.9rem;
-    }
-    
-    .admin-link {
-        padding: 8px 16px;
-        font-size: 0.9rem;
-    }
-    
-    .dropdown-menu {
-        min-width: 220px;
-        max-width: 300px;
-    }
-    
-    .dropdown-item {
-        padding: 0.9rem 1.3rem;
-        font-size: 0.9rem;
-    }
 }
 
 /* Mobile Responsive Design - Enhanced */
@@ -344,12 +356,27 @@
         transition: all 0.3s ease;
     }
 
-    .nav-link:hover {
+    /* Mobile Active State */
+    .nav-link.active {
+        background: rgba(255, 255, 255, 0.2);
+        border-left: 4px solid white;
+        color: white;
+        font-weight: 700;
+    }
+
+    .nav-link.active::after {
+        display: none;
+    }
+
+    .nav-link.active::before {
+        display: none;
+    }
+
+    .nav-link:not(.active):hover {
         background: rgba(255, 255, 255, 0.15);
         transform: none;
     }
 
-    /* Simple Mobile Dropdown */
     .dropdown-menu {
         position: static;
         opacity: 1;
@@ -369,7 +396,6 @@
         max-height: 350px;
     }
 
-    /* Simple Dropdown Items */
     .dropdown-item {
         padding: 0.8rem 1.8rem;
         color: #ffffff;
@@ -386,7 +412,6 @@
         border-bottom: none;
     }
 
-    /* Simple Admin Link */
     .admin-link {
         margin: 1.5rem;
         text-align: center;
@@ -406,7 +431,6 @@
         color: #ff6b35;
     }
 
-    /* Simple Dropdown Arrow */
     .dropdown-arrow {
         color: white;
         font-size: 0.8rem;
@@ -417,7 +441,6 @@
         transform: rotate(180deg);
     }
 
-    /* Smooth scrolling for mobile menu */
     .nav-menu {
         scrollbar-width: none;
         -ms-overflow-style: none;
@@ -425,36 +448,5 @@
 
     .nav-menu::-webkit-scrollbar {
         display: none;
-    }
-}
-
-/* Small Mobile Phones */
-@media (max-width: 480px) {
-    .navbar {
-        padding: 10px 15px;
-    }
-    
-    .nav-menu {
-        width: 260px;
-    }
-    
-    .nav-link {
-        padding: 1.1rem 1.3rem;
-        font-size: 0.95rem;
-    }
-    
-    .dropdown-item {
-        padding: 0.9rem 1.8rem;
-        font-size: 0.85rem;
-    }
-    
-    .admin-link {
-        margin: 1.2rem;
-        padding: 0.9rem 1.2rem;
-        font-size: 0.95rem;
-    }
-    
-    .logo img {
-        width: 40px;
     }
 }

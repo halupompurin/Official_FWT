@@ -130,9 +130,6 @@
                         <div class="empty-state">
                             <h3>No posts yet</h3>
                             <p>Start by creating your first post with multiple images!</p>
-                            <button class="btn btn-primary" onclick="showCreateModal()" style="margin-top: 1rem;">
-                                Create Your First Post
-                            </button>
                         </div>
                     @endif
                 </div>

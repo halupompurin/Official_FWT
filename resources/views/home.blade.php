@@ -54,10 +54,11 @@
     <!-- Hero Section -->
     <div></div>
     <section class="hero" >
-        <div class="hero-content" data-aos="fade-up"
-                                data-aos-duration="1000">
-            <h1 class="typewriter">Selamat Datang ke</h1>
-            <h1 class="typewriter">Pejabat Wilayah Trolak</h1>
+        <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+            <h1 class="first-text">Selamat Datang ke</h1>
+            <h1 class="sec-text">
+                <span id="typing-text" class="js-typing"></span>
+            </h1>
             <a href="/about" class="btn-primary">Tentang Kami</a>
             <div class="wilayah-image">
                 
@@ -118,14 +119,47 @@
             </p>
         </div>
     </footer>
+     <script>
+        // JavaScript typing animation function
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    // Stop the cursor blinking after typing is complete
+                    setTimeout(() => {
+                        element.style.borderRight = 'none';
+                    }, 1000);
+                }
+            }
+            
+            // Start typing after a delay to sync with fadeInUp animation
+            setTimeout(type, 1500);
+        }
+
+        // Initialize typing animation when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const typingElement = document.getElementById('typing-text');
+            const textToType = 'Pejabat FELDA Wilayah Trolak';
+            
+            // Start typing animation
+            typeWriter(typingElement, textToType, 120);
+        });
+    </script>
     <script>
+        
     // Add this script to your HTML file, before the closing </body> tag
 
-document.addEventListener('DOMContentLoaded', function() {
-    const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav-menu');
-    const navItems = document.querySelectorAll('.nav-item');
-    const dropdownItems = document.querySelectorAll('.nav-item');
+    document.addEventListener('DOMContentLoaded', function() {
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        const navItems = document.querySelectorAll('.nav-item');
+        const dropdownItems = document.querySelectorAll('.nav-item');
 
     // Toggle mobile menu
     hamburger.addEventListener('click', function() {

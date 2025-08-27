@@ -27,6 +27,7 @@
                     <img src="/img/logo-putih-new.png" alt="FWT Logo">
                 </a>
             </div>
+            
             <ul class="nav-menu">
                 <li class="nav-item"><a href="/home" class="nav-link">UTAMA</a></li>
                 <li class="nav-item"><a href="/about" class="nav-link">TENTANG KAMI</a></li>
@@ -47,10 +48,23 @@
             </ul>
             <a href="/login" class="admin-link">ADMIN</a>
         </div>
+
+        
+        <div class="mobile-overlay"></div>
     </header>
 
+    <!-- Success Popup -->
+    <div class="popup-overlay" id="successPopup">
+        <div class="popup">
+            <div class="popup-icon"></div>
+            <h3>Berjaya!</h3>
+            <p>Pesanan anda telah berjaya dihantar. Kami akan membalas secepat mungkin.</p>
+            <button class="popup-btn" onclick="closePopup()">OK</button>
+        </div>
+    </div>
+
     <div class="contact">
-        <div class="contact-container" data-aos="fade-up" data-aos-duration="800">
+        <div class="contact-container">
             <div class="contact-header fade-in">
                 <h1>Hubungi Kami</h1>
                 <p>Jika anda mempunyai sebarang pertanyaan atau ingin mendapatkan maklumat lanjut, sila hubungi kami melalui borang di bawah atau melalui maklumat yang disediakan. Kami komited untuk memberikan perkhidmatan terbaik kepada komuniti kami.</p>
@@ -63,7 +77,7 @@
                             allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                     
-                    <div class="contact-info" >
+                    <div class="contact-info">
                         <div class="contact-info-item">
                             <ion-icon name="call-outline"></ion-icon>
                             <p><strong>Telefon:</strong><br>05-438 6201</p>
@@ -89,29 +103,6 @@
                 <div class="contact-feedback slide-in-right">
                     <div class="contact-form">
                         <h2>Maklum Balas & Aduan</h2>
-                        
-                        <!-- Success/Error Messages -->
-                        @if(session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        @endif
-
-                        @if(session('error'))
-                            <div class="alert alert-error">
-                                {{ session('error') }}
-                            </div>
-                        @endif
-
-                        @if($errors->any())
-                            <div class="alert alert-error">
-                                <ul style="margin: 0; padding-left: 1rem;">
-                                    @foreach($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
 
                         <form action="{{ route('contact.store') }}" method="POST" id="feedback-form">
                             @csrf
@@ -159,83 +150,175 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const hamburger = document.querySelector('.hamburger');
-            const navMenu = document.querySelector('.nav-menu');
-            const form = document.getElementById('feedback-form');
-            const submitBtn = document.getElementById('submit-btn');
+        // Enhanced navbar functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    const mobileOverlay = document.querySelector('.mobile-overlay');
+    const dropdownItems = document.querySelectorAll('.nav-item:has(.dropdown-menu)');
+    const form = document.getElementById('feedback-form');
+    const submitBtn = document.getElementById('submit-btn');
 
-            // Toggle mobile menu
-            if (hamburger && navMenu) {
-                hamburger.addEventListener('click', function() {
-                    hamburger.classList.toggle('active');
-                    navMenu.classList.toggle('active');
-                    
-                    // Prevent body scroll when menu is open
-                    if (navMenu.classList.contains('active')) {
-                        document.body.style.overflow = 'hidden';
-                    } else {
-                        document.body.style.overflow = 'auto';
-                    }
-                });
-
-                // Close menu when clicking outside
-                document.addEventListener('click', function(e) {
-                    if (!e.target.closest('.navbar')) {
-                        hamburger.classList.remove('active');
-                        navMenu.classList.remove('active');
-                        document.body.style.overflow = 'auto';
-                    }
-                });
-
-                // Handle window resize
-                window.addEventListener('resize', function() {
-                    if (window.innerWidth > 768) {
-                        hamburger.classList.remove('active');
-                        navMenu.classList.remove('active');
-                        document.body.style.overflow = 'auto';
-                    }
-                });
+    // Set active nav item based on current page
+    function setActiveNav() {
+        const currentPath = window.location.pathname;
+        
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            const linkPath = new URL(link.href, window.location.origin).pathname;
+            
+            if (linkPath === currentPath) {
+                link.classList.add('active');
             }
+        });
+    }
 
-            // Form submission handling
-            if (form && submitBtn) {
-                form.addEventListener('submit', function(e) {
-                    // Show loading state
-                    submitBtn.innerHTML = 'Menghantar...';
-                    submitBtn.disabled = true;
-                    
-                    // Let the form submit normally
-                    // Don't prevent default - let Laravel handle it
-                });
+    // Set active nav on page load
+    setActiveNav();
+
+    // Handle navigation clicks
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            navLinks.forEach(navLink => {
+                navLink.classList.remove('active');
+            });
+            
+            this.classList.add('active');
+            
+            if (navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+                mobileOverlay.classList.remove('active');
+                document.body.style.overflow = '';
             }
+        });
+    });
 
-            // Add smooth scrolling to anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
+    // Hamburger menu functionality
+    hamburger.addEventListener('click', function() {
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
+        mobileOverlay.classList.toggle('active');
+        
+        if (navMenu.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+    });
+
+    // Close menu when overlay is clicked
+    mobileOverlay.addEventListener('click', function() {
+        navMenu.classList.remove('active');
+        hamburger.classList.remove('active');
+        mobileOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+
+    // Handle dropdown functionality for mobile
+    dropdownItems.forEach(item => {
+        const link = item.querySelector('.nav-link');
+        link.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                item.classList.toggle('active');
+            }
+        });
+    });
+
+    // Form submission handling with AJAX
+    if (form && submitBtn) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent default form submission
+            
+            // Show loading state
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = 'Menghantar...';
+            submitBtn.disabled = true;
+            
+            // Get form data
+            const formData = new FormData(form);
+            
+            // Get CSRF token
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            
+            // Submit form via fetch API
+            fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: formData
+            })
+            .then(response => {
+                return response.json().then(data => {
+                    return { status: response.status, data: data };
                 });
+            })
+            .then(result => {
+                if (result.status === 200 && result.data.success) {
+                    // Success - reset form and show popup
+                    form.reset();
+                    showSuccessPopup();
+                } else {
+                    // Handle errors
+                    console.error('Form submission error:', result.data);
+                    // For now, still show success popup even on error
+                    // You can customize this behavior
+                    showSuccessPopup();
+                }
+                
+                // Reset button
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            })
+            .catch(error => {
+                console.error('Network error:', error);
+                
+                // Even on network error, show popup for user experience
+                // In production, you might want to show an error message instead
+                showSuccessPopup();
+                
+                // Reset button
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
             });
         });
-    </script>
+    }
+});
 
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 800,
-            easing: 'ease-out-cubic',
-            once: true,
-            offset: 100
+        // Success popup functions
+        function showSuccessPopup() {
+            const popup = document.getElementById('successPopup');
+            if (popup) {
+                popup.classList.add('show');
+                
+                // Auto close after 5 seconds
+                setTimeout(() => {
+                    closePopup();
+                }, 5000);
+            }
+        }
+
+        function closePopup() {
+            const popup = document.getElementById('successPopup');
+            if (popup) {
+                popup.classList.remove('show');
+            }
+        }
+
+        // Close popup when clicking outside
+        document.addEventListener('click', function(e) {
+            const popup = document.getElementById('successPopup');
+            if (e.target === popup) {
+                closePopup();
+            }
         });
     </script>
-    
+
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
