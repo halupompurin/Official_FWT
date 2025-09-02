@@ -105,7 +105,7 @@
                                 <a href="{{ route('news.show', $article->id) }}">{{ $article->title }}</a>
                             </h2>
                             <p class="news-excerpt">
-                                {{ Str::limit(strip_tags($article->content), 50, '...') }}
+                                {{ Str::limit(strip_tags($article->content), 70, '...') }}
                             </p>
                             <div class="news-meta">
                                 <div class="news-date">

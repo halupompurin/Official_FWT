@@ -280,7 +280,7 @@
                     });
                 });
 
-                // Form submission
+                // FORM SUBMISSION
                 form.addEventListener('submit', function(e) {
                     e.preventDefault();
                     
@@ -373,7 +373,7 @@
                     });
                 });
 
-                // Mobile button handling
+                // MOBILE BUTTON ANIMATION
                 submitBtn.addEventListener('touchstart', function(e) {
                     if (!this.disabled) {
                         this.style.transform = 'translateY(1px)';
@@ -388,7 +388,7 @@
             }
         });
 
-        // Success popup functions
+        // SUCCESS POPUP FUNCTIONALITY
         function showSuccessPopup() {
             const popup = document.getElementById('successPopup');
             if (popup) {
@@ -406,7 +406,7 @@
             }
         }
 
-        // Close popup when clicking outside
+        // CLOSE POPUP WHEN CLICKING OUTSIDE
         document.addEventListener('click', function(e) {
             const popup = document.getElementById('successPopup');
             if (e.target === popup) {
@@ -414,7 +414,7 @@
             }
         });
 
-        // Handle orientation changes
+        // HANDLE CHANGE
         window.addEventListener('orientationchange', function() {
             setTimeout(function() {
                 window.scrollTo(0, 0);

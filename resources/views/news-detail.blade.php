@@ -14,6 +14,7 @@
 <body>
     <!-- Header -->
     <header class="header">
+
         <div class="navbar">
             <!-- Hamburger Menu -->
             <div class="hamburger">
@@ -48,6 +49,7 @@
             <a href="{{ route('login') }}" class="admin-link">ADMIN</a>
         </div>
     </header>
+
 
     <div class="news-container">
         <!-- Breadcrumb -->
@@ -207,127 +209,258 @@
     </footer>
 
     <script>
-        // Enhanced navbar functionality with active state management
-        document.addEventListener('DOMContentLoaded', function() {
-            const navLinks = document.querySelectorAll('.nav-link');
-            const hamburger = document.querySelector('.hamburger');
-            const navMenu = document.querySelector('.nav-menu');
-            const mobileOverlay = document.querySelector('.mobile-overlay');
-            const dropdownItems = document.querySelectorAll('.nav-item:has(.dropdown-menu)');
+      // Simplified Mobile Navigation JavaScript - Replace your existing script
+document.addEventListener('DOMContentLoaded', function() {
+    // Get elements
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    const mobileOverlay = document.querySelector('.mobile-overlay');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const dropdownItems = document.querySelectorAll('.nav-item:has(.dropdown-menu)');
 
-            // Function to set active nav item based on current page
-            function setActiveNav() {
-                const currentPath = window.location.pathname;
-                const currentParams = new URLSearchParams(window.location.search);
-                
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    
-                    // Check if this link matches current page
-                    const linkPath = new URL(link.href, window.location.origin).pathname;
-                    const linkParams = new URLSearchParams(new URL(link.href, window.location.origin).search);
-                    
-                    if (linkPath === currentPath) {
-                        // For pages with query parameters (like cawangan)
-                        if (currentParams.get('section') === linkParams.get('section') || 
-                            (!currentParams.has('section') && !linkParams.has('section'))) {
-                            link.classList.add('active');
-                        }
-                    }
-                });
-            }
+    // Debug: Log what elements we found
+    console.log('Mobile Nav Debug:', {
+        hamburger: !!hamburger,
+        navMenu: !!navMenu,
+        mobileOverlay: !!mobileOverlay,
+        navLinks: navLinks.length,
+        dropdownItems: dropdownItems.length
+    });
 
-            // Set active nav on page load
-            setActiveNav();
+    // Functions
+    function openMobileMenu() {
+        console.log('Opening mobile menu');
+        if (navMenu) navMenu.classList.add('active');
+        if (hamburger) hamburger.classList.add('active');
+        if (mobileOverlay) mobileOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
 
-            // Handle navigation clicks
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    // Remove active from all links
-                    navLinks.forEach(navLink => {
-                        navLink.classList.remove('active');
-                    });
-                    
-                    // Add active to clicked link
-                    this.classList.add('active');
-                    
-                    // Close mobile menu if open
-                    if (navMenu.classList.contains('active')) {
-                        navMenu.classList.remove('active');
-                        hamburger.classList.remove('active');
-                        mobileOverlay.classList.remove('active');
-                        document.body.style.overflow = '';
-                    }
-                });
-            });
+    function closeMobileMenu() {
+        console.log('Closing mobile menu');
+        if (navMenu) navMenu.classList.remove('active');
+        if (hamburger) hamburger.classList.remove('active');
+        if (mobileOverlay) mobileOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+        
+        // Close all dropdowns
+        dropdownItems.forEach(item => {
+            item.classList.remove('active');
+        });
+    }
 
-            // Hamburger menu functionality
-            hamburger.addEventListener('click', function() {
-                navMenu.classList.toggle('active');
-                hamburger.classList.toggle('active');
-                mobileOverlay.classList.toggle('active');
-                
-                if (navMenu.classList.contains('active')) {
-                    document.body.style.overflow = 'hidden';
-                } else {
-                    document.body.style.overflow = '';
-                }
-            });
+    function toggleMobileMenu() {
+        if (navMenu && navMenu.classList.contains('active')) {
+            closeMobileMenu();
+        } else {
+            openMobileMenu();
+        }
+    }
 
-            // Close menu when overlay is clicked
-            mobileOverlay.addEventListener('click', function() {
-                navMenu.classList.remove('active');
-                hamburger.classList.remove('active');
-                mobileOverlay.classList.remove('active');
-                document.body.style.overflow = '';
-            });
-
-            // Handle dropdown functionality for mobile
-            dropdownItems.forEach(item => {
-                const link = item.querySelector('.nav-link');
-                link.addEventListener('click', function(e) {
-                    if (window.innerWidth <= 768) {
-                        e.preventDefault();
-                        item.classList.toggle('active');
-                    }
-                });
-            });
+    // Hamburger click event
+    if (hamburger) {
+        hamburger.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Hamburger clicked - current screen width:', window.innerWidth);
+            toggleMobileMenu();
         });
 
-        // Share functions
-        function shareOnFacebook() {
-            const url = encodeURIComponent(window.location.href);
-            const title = encodeURIComponent(document.querySelector('.article-title').textContent);
-            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&t=${title}`, '_blank', 'width=600,height=400');
-        }
+        // Touch support
+        hamburger.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Hamburger touched');
+            toggleMobileMenu();
+        });
+    } else {
+        console.error('Hamburger element not found! Check your HTML structure.');
+    }
 
-        function shareOnTwitter() {
-            const url = encodeURIComponent(window.location.href);
-            const text = encodeURIComponent(document.querySelector('.article-title').textContent);
-            window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
-        }
+    // Overlay click to close menu
+    if (mobileOverlay) {
+        mobileOverlay.addEventListener('click', closeMobileMenu);
+    }
 
-        function shareOnWhatsApp() {
-            const url = encodeURIComponent(window.location.href);
-            const text = encodeURIComponent(document.querySelector('.article-title').textContent + ' - FELDA Wilayah Trolak');
-            window.open(`https://wa.me/?text=${text} ${url}`, '_blank');
-        }
+    // Nav link clicks
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            // If it's not a dropdown trigger, close the mobile menu
+            if (!this.querySelector('.dropdown-arrow')) {
+                closeMobileMenu();
+            }
+        });
+    });
 
-        function copyLink() {
-            navigator.clipboard.writeText(window.location.href).then(function() {
-                alert('Link telah disalin ke clipboard!');
-            }, function(err) {
-                console.error('Could not copy text: ', err);
-                // Fallback for older browsers
-                const textArea = document.createElement('textarea');
-                textArea.value = window.location.href;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                alert('Link telah disalin ke clipboard!');
+    // Dropdown functionality for mobile
+    dropdownItems.forEach(item => {
+        const link = item.querySelector('.nav-link');
+        if (link) {
+            link.addEventListener('click', function(e) {
+                // Only prevent default on mobile
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Close other dropdowns
+                    dropdownItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current dropdown
+                    item.classList.toggle('active');
+                    console.log('Dropdown toggled:', item.classList.contains('active'));
+                }
             });
         }
+    });
+
+    // Dropdown item clicks
+    document.querySelectorAll('.dropdown-item').forEach(item => {
+        item.addEventListener('click', function() {
+            // Allow navigation and close menu
+            closeMobileMenu();
+        });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (hamburger && navMenu && 
+            !hamburger.contains(e.target) && 
+            !navMenu.contains(e.target)) {
+            closeMobileMenu();
+        }
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            closeMobileMenu();
+        }
+    });
+
+    // Set active navigation item
+    function setActiveNav() {
+        const currentPath = window.location.pathname;
+        
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            
+            if (link.getAttribute('href') === '#') return;
+            
+            const linkPath = new URL(link.href, window.location.origin).pathname;
+            
+            if (currentPath.startsWith('/news') && linkPath === '/news') {
+                link.classList.add('active');
+            } else if (currentPath === linkPath) {
+                link.classList.add('active');
+            } else if (currentPath === '/home' && linkPath === '/home') {
+                link.classList.add('active');
+            } else if (currentPath.startsWith('/about') && linkPath === '/about') {
+                link.classList.add('active');
+            } else if (currentPath.startsWith('/contact') && linkPath === '/contact') {
+                link.classList.add('active');
+            } else if (currentPath.includes('/cawangan')) {
+                const currentParams = new URLSearchParams(window.location.search);
+                const linkParams = new URLSearchParams(new URL(link.href, window.location.origin).search);
+                
+                if (linkPath.includes('/cawangan') && 
+                    currentParams.get('section') === linkParams.get('section')) {
+                    link.classList.add('active');
+                }
+            }
+        });
+    }
+
+    setActiveNav();
+
+    // Test function - you can remove this after testing
+    window.testMobileMenu = function() {
+        console.log('Testing mobile menu...');
+        console.log('Elements exist:', {
+            hamburger: !!hamburger,
+            navMenu: !!navMenu,
+            mobileOverlay: !!mobileOverlay
+        });
+        console.log('Screen width:', window.innerWidth);
+        console.log('Menu is active:', navMenu ? navMenu.classList.contains('active') : 'navMenu not found');
+        
+        if (hamburger) {
+            console.log('Attempting to toggle menu...');
+            toggleMobileMenu();
+        }
+    };
+});
+
+// Keep your existing share functions
+function shareOnFacebook() {
+    const url = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent(document.querySelector('.article-title').textContent);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&t=${title}`, '_blank', 'width=600,height=400');
+}
+
+function shareOnTwitter() {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(document.querySelector('.article-title').textContent);
+    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
+}
+
+function shareOnWhatsApp() {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(document.querySelector('.article-title').textContent + ' - FELDA Wilayah Trolak');
+    window.open(`https://wa.me/?text=${text} ${url}`, '_blank');
+}
+
+function copyLink() {
+    navigator.clipboard.writeText(window.location.href).then(function() {
+        alert('Link telah disalin ke clipboard!');
+    }, function(err) {
+        console.error('Could not copy text: ', err);
+        const textArea = document.createElement('textarea');
+        textArea.value = window.location.href;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        alert('Link telah disalin ke clipboard!');
+    });
+}
+
+// Share functions (keep existing ones)
+function shareOnFacebook() {
+    const url = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent(document.querySelector('.article-title').textContent);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&t=${title}`, '_blank', 'width=600,height=400');
+}
+
+function shareOnTwitter() {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(document.querySelector('.article-title').textContent);
+    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
+}
+
+function shareOnWhatsApp() {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(document.querySelector('.article-title').textContent + ' - FELDA Wilayah Trolak');
+    window.open(`https://wa.me/?text=${text} ${url}`, '_blank');
+}
+
+function copyLink() {
+    navigator.clipboard.writeText(window.location.href).then(function() {
+        alert('Link telah disalin ke clipboard!');
+    }, function(err) {
+        console.error('Could not copy text: ', err);
+        const textArea = document.createElement('textarea');
+        textArea.value = window.location.href;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        alert('Link telah disalin ke clipboard!');
+    });
+}
     </script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

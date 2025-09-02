@@ -345,11 +345,20 @@ class PostController extends BaseController
      */
     public function publicShow(Post $post)
     {
-        // Increment view count
-        $post->increment('views');
         
-        $post->load('user');
-        return view('news-detail', compact('post'));
+    // Increment view count
+    $post->increment('views');
+    
+    // Load the user relationship
+    $post->load('user');
+    
+    // Get popular news (excluding current post)
+    $popularNews = Post::where('id', '!=', $post->id)
+        ->where('views', '>', 0)
+        ->orderBy('views', 'desc')
+        ->limit(5)
+        ->get();
+        return view('news-detail', compact('post', 'popularNews'));
     }
 
     /**

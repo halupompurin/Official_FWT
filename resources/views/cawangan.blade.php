@@ -145,11 +145,6 @@
                                 <li>Pengurusan Akaun Badan dan Institusi Peneroka</li>
                                 <li>Pengauditan dan Pemeriksaan Akaun</li>
                             </div>
-                            <div class="contact-info">
-                                <strong>Maklumat Hubungan:</strong><br>
-                                Telefon: 05-438 6201<br>
-                                Email: kewangan.fwt@felda.net.my
-                            </div>
                         </div>
                     </div>
 
@@ -178,11 +173,6 @@
                                 <li>Pindahan Aset</li>
                                 <li>Pengurusan Stor</li>
                             </div>
-                            <div class="contact-info">
-                                <strong>Maklumat Hubungan:</strong><br>
-                                Telefon: 05-438 6201<br>
-                                Email: tanah.fwt@felda.net.my
-                            </div>
                         </div>
                     </div>
 
@@ -206,11 +196,6 @@
                                 <li>Urusan Kerja Naik Taraf Bangunan Wilayah</li>
                                 <li>Penyelenggaraan Bangunan</li>
                                 <li>Pengurusan Tender</li>
-                            </div>
-                            <div class="contact-info">
-                                <strong>Maklumat Hubungan:</strong><br>
-                                Telefon: 05-438 6201<br>
-                                Email: perolehan.fwt@felda.net.my
                             </div>
                         </div>
                     </div>
@@ -236,11 +221,6 @@
                                 <li>Pembangunan Sukan </li>
                                 <li>Pengurusan Infrastruktur</li>
                                 <li>Anugerah Kecemerlangan Rancangan FELDA (AKRF)</li>
-                            </div>
-                            <div class="contact-info">
-                                <strong>Maklumat Hubungan:</strong><br>
-                                Telefon: 05-438 6201<br>
-                                Email: komuniti.fwt@felda.net.my
                             </div>
                         </div>
                     </div>
@@ -269,8 +249,7 @@
                             </div>
                             <div class="contact-info">
                                 <strong>Maklumat Hubungan:</strong><br>
-                                Telefon: 05-438 6201<br>
-                                Email: pertanian.fwt@felda.net.my
+                                Email: usahawan.trlk@felda.net.my
                             </div>
                         </div>
                     </div>
@@ -302,11 +281,6 @@
                                 <li>Penyelidikan dan Pembangunan</li>
                                 <li>Sekretariat Mesyuarat Operasi</li>
                                 <li>Kumpulan Inovatif & Kreatif (KIK)</li>
-                            </div>
-                            <div class="contact-info">
-                                <strong>Maklumat Hubungan:</strong><br>
-                                Telefon: 05-438 6201<br>
-                                Email: ladang.fwt@felda.net.my
                             </div>
                         </div>
                     </div>
