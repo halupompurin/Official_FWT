@@ -153,106 +153,92 @@
     </script>
     <script>
         
-    // Add this script to your HTML file, before the closing </body> tag
+    // Enhanced navbar functionality with active state management
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            const mobileOverlay = document.querySelector('.mobile-overlay');
+            const dropdownItems = document.querySelectorAll('.nav-item:has(.dropdown-menu)');
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
-        const navItems = document.querySelectorAll('.nav-item');
-        const dropdownItems = document.querySelectorAll('.nav-item');
-
-    // Toggle mobile menu
-    hamburger.addEventListener('click', function() {
-        hamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
-        
-        // Prevent body scroll when menu is open
-        if (navMenu.classList.contains('active')) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'auto';
-        }
-    });
-
-    // Handle dropdown clicks on mobile
-    dropdownItems.forEach(item => {
-        const link = item.querySelector('.nav-link');
-        const dropdown = item.querySelector('.dropdown-menu');
-        
-        if (dropdown) {
-            link.addEventListener('click', function(e) {
-                if (window.innerWidth <= 768) {
-                    e.preventDefault();
-                    item.classList.toggle('active');
+            // Function to set active nav item based on current page
+            function setActiveNav() {
+                const currentPath = window.location.pathname;
+                const currentParams = new URLSearchParams(window.location.search);
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
                     
-                    // Close other dropdowns
-                    dropdownItems.forEach(otherItem => {
-                        if (otherItem !== item) {
-                            otherItem.classList.remove('active');
+                    // Check if this link matches current page
+                    const linkPath = new URL(link.href, window.location.origin).pathname;
+                    const linkParams = new URLSearchParams(new URL(link.href, window.location.origin).search);
+                    
+                    if (linkPath === currentPath) {
+                        // For pages with query parameters (like cawangan)
+                        if (currentParams.get('section') === linkParams.get('section') || 
+                            (!currentParams.has('section') && !linkParams.has('section'))) {
+                            link.classList.add('active');
                         }
+                    }
+                });
+            }
+
+            // Set active nav on page load
+            setActiveNav();
+
+            // Handle navigation clicks
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Remove active from all links
+                    navLinks.forEach(navLink => {
+                        navLink.classList.remove('active');
                     });
+                    
+                    // Add active to clicked link
+                    this.classList.add('active');
+                    
+                    // Close mobile menu if open
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        hamburger.classList.remove('active');
+                        mobileOverlay.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+            });
+
+            // Hamburger menu functionality
+            hamburger.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+                mobileOverlay.classList.toggle('active');
+                
+                if (navMenu.classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
                 }
             });
-        }
-    });
 
-    // Close menu when clicking on regular nav links (not dropdown toggles)
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', function(e) {
-            const parentItem = e.target.closest('.nav-item');
-            const hasDropdown = parentItem.querySelector('.dropdown-menu');
-            
-            // Only close menu if it's not a dropdown toggle
-            if (!hasDropdown && window.innerWidth <= 768) {
-                hamburger.classList.remove('active');
+            // Close menu when overlay is clicked
+            mobileOverlay.addEventListener('click', function() {
                 navMenu.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        });
-    });
-
-    // Close menu when clicking on dropdown items
-    document.querySelectorAll('.dropdown-item').forEach(item => {
-        item.addEventListener('click', function() {
-            if (window.innerWidth <= 768) {
                 hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
-                navItems.forEach(navItem => navItem.classList.remove('active'));
-                document.body.style.overflow = 'auto';
-            }
+                mobileOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+
+            // Handle dropdown functionality for mobile
+            dropdownItems.forEach(item => {
+                const link = item.querySelector('.nav-link');
+                link.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        item.classList.toggle('active');
+                    }
+                });
+            });
         });
-    });
-
-    // Close menu when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.navbar')) {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
-            navItems.forEach(item => item.classList.remove('active'));
-            document.body.style.overflow = 'auto';
-        }
-    });
-
-    // Handle window resize
-    window.addEventListener('resize', function() {
-        if (window.innerWidth > 768) {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
-            navItems.forEach(item => item.classList.remove('active'));
-            document.body.style.overflow = 'auto';
-        }
-    });
-
-    // Handle scroll to close mobile menu
-    window.addEventListener('scroll', function() {
-        if (window.innerWidth <= 768 && navMenu.classList.contains('active')) {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
-            navItems.forEach(item => item.classList.remove('active'));
-            document.body.style.overflow = 'auto';
-        }
-    });
-});
     </script>
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
   <script>

@@ -12,6 +12,7 @@
         
 </head>
 <body>
+    
     <!-- Header -->
     <header class="header">
         <div class="navbar">
@@ -49,10 +50,10 @@
             <a href="/login" class="admin-link">ADMIN</a>
         </div>
 
-        
-        <div class="mobile-overlay"></div>
+    <div class="mobile-overlay"></div>
     </header>
 
+    <body>
     <!-- Success Popup -->
     <div class="popup-overlay" id="successPopup">
         <div class="popup">
@@ -67,7 +68,7 @@
         <div class="contact-container">
             <div class="contact-header fade-in">
                 <h1>Hubungi Kami</h1>
-                <p>Jika anda mempunyai sebarang pertanyaan atau ingin mendapatkan maklumat lanjut, sila hubungi kami melalui borang di bawah atau melalui maklumat yang disediakan. Kami komited untuk memberikan perkhidmatan terbaik kepada komuniti kami.</p>
+                <p>Jika anda mempunyai sebarang pertanyaan atau ingin mendapatkan maklumat lanjut, sila hubungi kami melalui borang di bawah atau melalui maklumat yang disediakan.</p>
             </div>
             
             <div class="contact-content">
@@ -104,21 +105,20 @@
                     <div class="contact-form">
                         <h2>Maklum Balas & Aduan</h2>
 
-                        <form action="{{ route('contact.store') }}" method="POST" id="feedback-form">
-                            @csrf
+                        <form id="feedback-form">
                             <div class="form-group">
                                 <label for="name">Nama</label>
-                                <input type="text" id="name" name="name" placeholder="Masukkan nama anda" required value="{{ old('name') }}">
+                                <input type="text" id="name" name="name" placeholder="Masukkan nama anda" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" id="email" name="email" placeholder="Masukkan email anda" required value="{{ old('email') }}">
+                                <input type="email" id="email" name="email" placeholder="Masukkan email anda" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="message">Pesanan</label>
-                                <textarea id="message" name="message" rows="5" placeholder="Tulis pesanan anda" required>{{ old('message') }}</textarea>
+                                <textarea id="message" name="message" rows="5" placeholder="Tulis pesanan anda" required></textarea>
                             </div>
 
                             <button type="submit" class="submit-btn" id="submit-btn">Hantar Pesanan</button>
@@ -150,153 +150,249 @@
     </footer>
 
     <script>
-        // Enhanced navbar functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const navLinks = document.querySelectorAll('.nav-link');
-    const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav-menu');
-    const mobileOverlay = document.querySelector('.mobile-overlay');
-    const dropdownItems = document.querySelectorAll('.nav-item:has(.dropdown-menu)');
-    const form = document.getElementById('feedback-form');
-    const submitBtn = document.getElementById('submit-btn');
-
-    // Set active nav item based on current page
-    function setActiveNav() {
-        const currentPath = window.location.pathname;
-        
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            const linkPath = new URL(link.href, window.location.origin).pathname;
+       document.addEventListener('DOMContentLoaded', function() {
+            // Get all necessary elements
             
-            if (linkPath === currentPath) {
-                link.classList.add('active');
+            const form = document.getElementById('feedback-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const inputs = form?.querySelectorAll('input, textarea');
+
+            // Enhanced navbar functionality with active state management
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            const mobileOverlay = document.querySelector('.mobile-overlay');
+            const dropdownItems = document.querySelectorAll('.nav-item:has(.dropdown-menu)');
+
+            // Function to set active nav item based on current page
+            function setActiveNav() {
+                const currentPath = window.location.pathname;
+                const currentParams = new URLSearchParams(window.location.search);
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    
+                    // Check if this link matches current page
+                    const linkPath = new URL(link.href, window.location.origin).pathname;
+                    const linkParams = new URLSearchParams(new URL(link.href, window.location.origin).search);
+                    
+                    if (linkPath === currentPath) {
+                        // For pages with query parameters (like cawangan)
+                        if (currentParams.get('section') === linkParams.get('section') || 
+                            (!currentParams.has('section') && !linkParams.has('section'))) {
+                            link.classList.add('active');
+                        }
+                    }
+                });
             }
-        });
-    }
 
-    // Set active nav on page load
-    setActiveNav();
+            // Set active nav on page load
+            setActiveNav();
 
-    // Handle navigation clicks
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            navLinks.forEach(navLink => {
-                navLink.classList.remove('active');
+            // Handle navigation clicks
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Remove active from all links
+                    navLinks.forEach(navLink => {
+                        navLink.classList.remove('active');
+                    });
+                    
+                    // Add active to clicked link
+                    this.classList.add('active');
+                    
+                    // Close mobile menu if open
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        hamburger.classList.remove('active');
+                        mobileOverlay.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
             });
-            
-            this.classList.add('active');
-            
-            if (navMenu.classList.contains('active')) {
+
+            // Hamburger menu functionality
+            hamburger.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+                mobileOverlay.classList.toggle('active');
+                
+                if (navMenu.classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // Close menu when overlay is clicked
+            mobileOverlay.addEventListener('click', function() {
                 navMenu.classList.remove('active');
                 hamburger.classList.remove('active');
                 mobileOverlay.classList.remove('active');
                 document.body.style.overflow = '';
-            }
-        });
-    });
+            });
 
-    // Hamburger menu functionality
-    hamburger.addEventListener('click', function() {
-        navMenu.classList.toggle('active');
-        hamburger.classList.toggle('active');
-        mobileOverlay.classList.toggle('active');
-        
-        if (navMenu.classList.contains('active')) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
-    });
-
-    // Close menu when overlay is clicked
-    mobileOverlay.addEventListener('click', function() {
-        navMenu.classList.remove('active');
-        hamburger.classList.remove('active');
-        mobileOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-    });
-
-    // Handle dropdown functionality for mobile
-    dropdownItems.forEach(item => {
-        const link = item.querySelector('.nav-link');
-        link.addEventListener('click', function(e) {
-            if (window.innerWidth <= 768) {
-                e.preventDefault();
-                item.classList.toggle('active');
-            }
-        });
-    });
-
-    // Form submission handling with AJAX
-    if (form && submitBtn) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent default form submission
-            
-            // Show loading state
-            const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = 'Menghantar...';
-            submitBtn.disabled = true;
-            
-            // Get form data
-            const formData = new FormData(form);
-            
-            // Get CSRF token
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            
-            // Submit form via fetch API
-            fetch(form.action, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken,
-                    'Accept': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: formData
-            })
-            .then(response => {
-                return response.json().then(data => {
-                    return { status: response.status, data: data };
+            // Handle dropdown functionality for mobile
+            dropdownItems.forEach(item => {
+                const link = item.querySelector('.nav-link');
+                link.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        item.classList.toggle('active');
+                    }
                 });
-            })
-            .then(result => {
-                if (result.status === 200 && result.data.success) {
-                    // Success - reset form and show popup
-                    form.reset();
-                    showSuccessPopup();
-                } else {
-                    // Handle errors
-                    console.error('Form submission error:', result.data);
-                    // For now, still show success popup even on error
-                    // You can customize this behavior
-                    showSuccessPopup();
-                }
-                
-                // Reset button
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-            })
-            .catch(error => {
-                console.error('Network error:', error);
-                
-                // Even on network error, show popup for user experience
-                // In production, you might want to show an error message instead
-                showSuccessPopup();
-                
-                // Reset button
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
             });
         });
-    }
-});
+
+            // FORM FUNCTIONALITY
+            if (inputs) {
+                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+                // Mobile focus handling
+                inputs.forEach(input => {
+                    input.addEventListener('touchstart', function(e) {
+                        e.stopPropagation();
+                    }, { passive: true });
+
+                    input.addEventListener('focus', function() {
+                        this.style.background = 'rgba(255, 255, 255, 0.25)';
+                        this.style.borderColor = '#ffffff';
+                        
+                        if (window.innerWidth <= 768) {
+                            setTimeout(() => {
+                                this.scrollIntoView({ 
+                                    behavior: 'smooth', 
+                                    block: 'center',
+                                    inline: 'nearest'
+                                });
+                            }, 300);
+                        }
+                    });
+                    
+                    input.addEventListener('blur', function() {
+                        this.style.background = 'rgba(255, 255, 255, 0.15)';
+                        this.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                    });
+
+                    input.addEventListener('input', function() {
+                        this.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                        this.style.background = 'rgba(255, 255, 255, 0.15)';
+                    });
+                });
+
+                // Form submission
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    let isValid = true;
+                    const formData = new FormData();
+                    
+                    inputs.forEach(input => {
+                        if (input.hasAttribute('required') && !input.value.trim()) {
+                            input.style.borderColor = '#ff4444';
+                            input.style.background = 'rgba(255, 68, 68, 0.1)';
+                            isValid = false;
+                        } else if (input.value.trim()) {
+                            formData.append(input.name, input.value.trim());
+                        }
+                    });
+
+                    if (!isValid) {
+                        const firstInvalid = form.querySelector('input[style*="rgb(255, 68, 68)"], textarea[style*="rgb(255, 68, 68)"]');
+                        if (firstInvalid) {
+                            firstInvalid.focus();
+                            firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                        return;
+                    }
+                    
+                    const originalText = submitBtn.innerHTML;
+                    submitBtn.innerHTML = 'Menghantar...';
+                    submitBtn.disabled = true;
+                    
+                    if (csrfToken) {
+                        formData.append('_token', csrfToken);
+                    }
+                    
+                    fetch('/contact', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Accept': 'application/json',
+                            ...(csrfToken && { 'X-CSRF-TOKEN': csrfToken })
+                        }
+                    })
+                    .then(async response => {
+                        const contentType = response.headers.get('content-type');
+                        if (contentType && contentType.includes('application/json')) {
+                            return response.json();
+                        } else {
+                            throw new Error(`Server returned ${response.status}: ${response.statusText}`);
+                        }
+                    })
+                    .then(data => {
+                        console.log('Server response:', data);
+                        
+                        if (data.success) {
+                            form.reset();
+                            inputs.forEach(input => {
+                                input.style.background = 'rgba(255, 255, 255, 0.15)';
+                                input.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                            });
+                            
+                            showSuccessPopup();
+                        } else {
+                            if (data.errors) {
+                                Object.keys(data.errors).forEach(field => {
+                                    const input = form.querySelector(`[name="${field}"]`);
+                                    if (input) {
+                                        input.style.borderColor = '#ff4444';
+                                        input.style.background = 'rgba(255, 68, 68, 0.1)';
+                                    }
+                                });
+                                
+                                const firstErrorField = Object.keys(data.errors)[0];
+                                const firstErrorInput = form.querySelector(`[name="${firstErrorField}"]`);
+                                if (firstErrorInput) {
+                                    firstErrorInput.focus();
+                                    firstErrorInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                }
+                            }
+                            
+                            alert(data.message || 'Terdapat ralat semasa menghantar pesanan.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Submission error:', error);
+                        alert('Terdapat ralat semasa menghantar pesanan. Sila cuba lagi.');
+                    })
+                    .finally(() => {
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                    });
+                });
+
+                // Mobile button handling
+                submitBtn.addEventListener('touchstart', function(e) {
+                    if (!this.disabled) {
+                        this.style.transform = 'translateY(1px)';
+                    }
+                }, { passive: true });
+
+                submitBtn.addEventListener('touchend', function(e) {
+                    if (!this.disabled) {
+                        this.style.transform = 'translateY(-2px)';
+                    }
+                }, { passive: true });
+            }
+        });
 
         // Success popup functions
         function showSuccessPopup() {
             const popup = document.getElementById('successPopup');
             if (popup) {
                 popup.classList.add('show');
-                
-                // Auto close after 5 seconds
                 setTimeout(() => {
                     closePopup();
                 }, 5000);
@@ -317,7 +413,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 closePopup();
             }
         });
-    </script>
+
+        // Handle orientation changes
+        window.addEventListener('orientationchange', function() {
+            setTimeout(function() {
+                window.scrollTo(0, 0);
+            }, 500);
+        });
+        <\script>
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

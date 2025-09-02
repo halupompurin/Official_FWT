@@ -14,7 +14,7 @@
  .hero {
      background:
          linear-gradient(135deg, rgba(0, 0, 0, 0.368), rgba(0, 0, 0, 0.4)),
-         url('/img/wilayah-trolak-hp.png') center/cover no-repeat;
+         url('/img/wilayah-trolak.jpg') center/cover no-repeat;
      min-height: 66vh;
      display: flex;
      align-items: center;
@@ -67,21 +67,12 @@
 
  /* JavaScript-based typing animation styles */
  .js-typing {
-     border-right: 3px solid #ffd700;
+     border-right: 3px solid #000000;
      animation: blink-caret 0.75s step-end infinite;
      display: inline-block;
  }
 
- /* CSS-only typing animation (alternative) */
- .typing-text {
-     overflow: hidden;
-     border-right: 3px solid #ffd700;
-     white-space: nowrap;
-     animation: typing 3.5s steps(40, end) 1.5s forwards,
-         blink-caret 0.75s step-end infinite 1.5s;
-     width: 0;
-     display: inline-block;
- }
+
 
  @keyframes typing {
      from {
@@ -101,7 +92,7 @@
      }
 
      50% {
-         border-color: #ffd700;
+         border-color: #000000;
      }
  }
 

@@ -207,17 +207,91 @@
     </footer>
 
     <script>
-        // Navigation functionality
+        // Enhanced navbar functionality with active state management
         document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
             const hamburger = document.querySelector('.hamburger');
             const navMenu = document.querySelector('.nav-menu');
+            const mobileOverlay = document.querySelector('.mobile-overlay');
+            const dropdownItems = document.querySelectorAll('.nav-item:has(.dropdown-menu)');
 
-            if (hamburger && navMenu) {
-                hamburger.addEventListener('click', function() {
-                    hamburger.classList.toggle('active');
-                    navMenu.classList.toggle('active');
+            // Function to set active nav item based on current page
+            function setActiveNav() {
+                const currentPath = window.location.pathname;
+                const currentParams = new URLSearchParams(window.location.search);
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    
+                    // Check if this link matches current page
+                    const linkPath = new URL(link.href, window.location.origin).pathname;
+                    const linkParams = new URLSearchParams(new URL(link.href, window.location.origin).search);
+                    
+                    if (linkPath === currentPath) {
+                        // For pages with query parameters (like cawangan)
+                        if (currentParams.get('section') === linkParams.get('section') || 
+                            (!currentParams.has('section') && !linkParams.has('section'))) {
+                            link.classList.add('active');
+                        }
+                    }
                 });
             }
+
+            // Set active nav on page load
+            setActiveNav();
+
+            // Handle navigation clicks
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Remove active from all links
+                    navLinks.forEach(navLink => {
+                        navLink.classList.remove('active');
+                    });
+                    
+                    // Add active to clicked link
+                    this.classList.add('active');
+                    
+                    // Close mobile menu if open
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        hamburger.classList.remove('active');
+                        mobileOverlay.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+            });
+
+            // Hamburger menu functionality
+            hamburger.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+                mobileOverlay.classList.toggle('active');
+                
+                if (navMenu.classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // Close menu when overlay is clicked
+            mobileOverlay.addEventListener('click', function() {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+                mobileOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+
+            // Handle dropdown functionality for mobile
+            dropdownItems.forEach(item => {
+                const link = item.querySelector('.nav-link');
+                link.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        item.classList.toggle('active');
+                    }
+                });
+            });
         });
 
         // Share functions
